@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram PWA</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="/images/icon-256_ios.png" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body>
+    <header>
+      <img src="/images/instagram (2).png" alt="Instagram Logo" class="logo" />
+      <p>Instagram</p>
+      <div class="header-icons">
+        <button class="icon">💬</button>
+        <button class="icon">🔔</button>
+        <button class="icon" id="camera-toggle">📸</button>
+      </div>
+    </header>
+
+    <main id="camera">
+      <canvas id="camera--sensor"></canvas>
+      <video id="camera--view" autoplay playsinline></video>
+      <img src="//:0" alt="" id="camera--output" />
+      <button id="camera--trigger">Tirar foto</button>
+    </main>
+
+    <section id="stories">
+      <div id="image-container"></div>
+      <button id="clear-images">Apagar Todas as Imagens</button>
+      <h2>Stories</h2>
+      <div class="stories-container">
+        <div class="story">
+          <img src="/images/alan.jpeg" alt="Story 1" />
+        </div>
+        <div class="story">
+          <img src="/images/Calleri1.jpg" alt="Story 2" />
+        </div>
+        <div class="story">
+          <img src="/images/luci.jpeg" alt="Story 3" />
+        </div>
+      </div>
+    </section>
+
+    <section id="feed">
+      <h2>Feed</h2>
+
+      <div class="feed-post">
+        <div class="post-header">
+          <img src="/images/luci.jpeg" alt="Perfil 1" class="post-profile" />
+          <p class="post-username">lucianoneves10</p>
+        </div>
+        <img src="/images/luci.jpeg" alt="Post 1" class="post-image" />
+        <div class="post-actions">
+          <button class="like-icon">❤️</button>
+          <button class="comment-icon">💬</button>
+        </div>
+        <p class="post-caption"></p>
+        <div class="post-comments">
+          <p><strong>alan.franco.2</strong> Meu 10</p>
+          <p><strong>brunoryancruz</strong> Lushow, não tem jeito! 🔥</p>
+        </div>
+      </div>
+
+      <div class="feed-post">
+        <div class="post-header">
+          <img src="/images/alan.jpeg" alt="Perfil 2" class="post-profile" />
+          <p class="post-username">alan.franco.2</p>
+        </div>
+        <img src="/images/alan.jpeg" alt="Post 2" class="post-image" />
+        <div class="post-actions">
+          <button class="like-icon">❤️</button>
+          <button class="comment-icon">💬</button>
+        </div>
+        <p class="post-caption">+3 seguimos</p>
+        <div class="post-comments">
+          <p><strong>ramipicasso</strong> brooo 🔥</p>
+        </div>
+      </div>
+
+      <div class="feed-post">
+        <div class="post-header">
+          <img src="/images/Calleri1.jpg" alt="Perfil 3" class="post-profile" />
+          <p class="post-username">jocalleri</p>
+        </div>
+        <img src="/images/Calleri1.jpg" alt="Post 3" class="post-image" />
+        <div class="post-actions">
+          <button class="like-icon">❤️</button>
+          <button class="comment-icon">💬</button>
+        </div>
+        <p class="post-caption"></p>
+        <div class="post-comments">
+          <p><strong>pk.baldin</strong> VOCE E IDOLO D++++ 💪</p>
+        </div>
+      </div>
+
+    </section>
+
+    <script src="/js/main.js" type="module"></script>
+  </body>
+</html>
