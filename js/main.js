@@ -1,3 +1,5 @@
+import { createDB, saveImage, loadImages, clearImages } from "./db.js";
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
@@ -15,6 +17,11 @@ var constraints = {
   audio: false,
 };
 
+window.addEventListener("load", async () => {
+  await createDB();
+  console.log("Banco de dados carregado com sucesso!");
+})
+
 const cameraView = document.querySelector("#camera--view"),
       cameraOutput = document.querySelector("#camera--output"),
       cameraSensor = document.querySelector("#camera--sensor"),
@@ -29,7 +36,7 @@ async function cameraStart() {
   }
 }
 
-cameraTrigger.onclick = function () {
+cameraTrigger.onclick = async function () {
   cameraSensor.width = cameraView.videoWidth;
   cameraSensor.height = cameraView.videoHeight;
   cameraSensor.getContext("2d").drawImage(cameraView, 0, 0);
@@ -37,40 +44,22 @@ cameraTrigger.onclick = function () {
   const imageData = cameraSensor.toDataURL("image/webp");
 
   if (imageData) {
-    let images = JSON.parse(localStorage.getItem("capturedImages")) || [];
-    images.push(imageData);
-    localStorage.setItem("capturedImages", JSON.stringify(images));
-
-    cameraOutput.src = imageData;
+    await saveImage(imageData); // salvando no db
+    cameraOutput.src = imageData; 
     cameraOutput.classList.add("taken");
 
-    console.log("Imagem salva no LocalStorage!");
+    console.log("Imagem salva no IndexedDB!");
+    console.log("📸 Foto capturada com sucesso!");
   }
 };
 
-function loadStoredImages() {
-  let images = JSON.parse(localStorage.getItem("capturedImages")) || [];
-  const imageContainer = document.getElementById("image-container");
-
-  imageContainer.innerHTML = "";
-
-  images.forEach(imageData => {
-    const img = document.createElement("img");
-    img.src = imageData;
-    img.classList.add("stored-image");
-    imageContainer.appendChild(img);
-  });
-
-  console.log("Imagens carregadas do LocalStorage!");
-}
-
-window.addEventListener("load", function() {
-  loadStoredImages();
-  cameraStart();
+window.addEventListener("load", async() => {
+  await loadImages();
+  await cameraStart();
 });
 
-document.getElementById("clear-images").addEventListener("click", function () {
-  localStorage.removeItem("capturedImages");
-  loadStoredImages();
-  console.log("Todas as imagens foram apagadas!");
+document.getElementById("clear-images").addEventListener("click", async () => {
+await clearImages()
+await loadImages()
+console.log("Todas as imagens foram apagadas!");
 });
